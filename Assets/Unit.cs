@@ -10,7 +10,6 @@ public class Unit : MonoBehaviour
     // 
 
     // sucker enemies who go for the center to suck the poop
-
     // 
 
     // Spawn Rate - increases per range 
@@ -19,34 +18,28 @@ public class Unit : MonoBehaviour
 
     // defense unit that attacks both the enemies, using points as ammo? 
 
-    public float Health;
-    public float DefaultHealth;
-    public NavMeshAgent Agent;
+    private IAttackBehavior _attackBehavior;
+    private IMoveBehavior _moveBehavior;
+    private IDamageble _damageBehavior;
+    private UnitAI _ai;
+    public UnitType Type;
 
-    public virtual bool TakeDamage(float damage)
+    void Awake()
     {
-        Health -= damage;
-        OnTakeDamage(damage);
-        if (Health <= 0)
-        {
-            Die();
-            return true;
-        }
-        return false;
+        // Assumes only one component implements each interface on this GameObject.
+        _attackBehavior = GetComponent<IAttackBehavior>();
+        _moveBehavior = GetComponent<IMoveBehavior>();
+        _damageBehavior = GetComponent<IDamageble>();
+        _ai = GetComponent<UnitAI>();
+    }
+
+    public bool TakeDamage(float amount)
+    {
+        return _damageBehavior.TakeDamage(amount);
     }
 
     public Vector3 GetTop()
     {
         return transform.TransformPoint(new Vector3(0, 0.5f, 0));
-    }
-
-    public virtual void OnTakeDamage(float damage)
-    {
-
-    }
-
-    public virtual void Die()
-    {
-        // Destroy(gameObject);
     }
 }

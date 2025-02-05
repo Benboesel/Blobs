@@ -1,22 +1,17 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Harvester : MonoBehaviour
+public class PlowPlowAI : UnitAI
 {
-    // find nearest blob 
-    // pick them up 
-    // bring them back to blob depot
     public float detectionRadius = 5f;
     public LayerMask BlobLayer;
-    private NavMeshAgent agent;
-    public float speed = 3f;
+    private IMoveBehavior moveBehavior;
     public Transform BlobInHand;
-    public BlobDepot Depot;
+    public float PickupDistance;
 
-    void Start()
+    public void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.speed = speed;
+        moveBehavior = GetComponent<IMoveBehavior>();
     }
 
     public void SearchForBlob()
@@ -39,7 +34,12 @@ public class Harvester : MonoBehaviour
         }
         if (nearestBlob != null)
         {
-            agent.SetDestination(nearestBlob.transform.position);
+            moveBehavior.Move(nearestBlob.transform.position);
+            if (Vector3.Distance(transform.position, nearestBlob.transform.position) < PickupDistance)
+            {
+                PickUpBlob(nearestBlob);
+
+            }
         }
         else
         {
@@ -54,8 +54,9 @@ public class Harvester : MonoBehaviour
             0,
             Random.Range(-GameManager.instance.PlayAreaSize, GameManager.instance.PlayAreaSize)
         );
-        agent.SetDestination(randomDirection);
+        moveBehavior.Move(randomDirection);
     }
+    
     public void Update()
     {
         if (!BlobInHand)
@@ -64,10 +65,10 @@ public class Harvester : MonoBehaviour
         }
         else
         {
-            agent.SetDestination(Depot.transform.position);
-            if (Vector3.Distance(transform.position, Depot.transform.position) < 5f)
+            moveBehavior.Move(GameManager.instance.Depot.transform.position);
+            if (Vector3.Distance(transform.position, GameManager.instance.Depot.transform.position) < 5f)
             {
-                Depot.AddBlob(BlobInHand);
+                GameManager.instance.Depot.AddBlob(BlobInHand);
                 BlobInHand = null;
             }
         }
@@ -81,15 +82,5 @@ public class Harvester : MonoBehaviour
         blobObject.transform.SetParent(this.transform);
         blobObject.localPosition = new Vector3(0, 1.0f, 0);
         BlobInHand = blobObject;
-    }
-
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (BlobInHand) return;
-        Slime blob = collision.GetComponent<Slime>();
-        if (blob != null)
-        {
-            PickUpBlob(blob);
-        }
     }
 }

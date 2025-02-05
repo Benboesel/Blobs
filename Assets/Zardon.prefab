@@ -14,9 +14,13 @@ GameObject:
   - component: {fileID: 1027793338400913943}
   - component: {fileID: 1243225645955572546}
   - component: {fileID: 5702748126904223301}
-  - component: {fileID: 7847676117062072693}
-  m_Layer: 0
-  m_Name: Zordon
+  - component: {fileID: 7606430661722545771}
+  - component: {fileID: 7405115888246014747}
+  - component: {fileID: 3186957886589778249}
+  - component: {fileID: 2598958254492306625}
+  - component: {fileID: 3119710214192939821}
+  m_Layer: 8
+  m_Name: Zardon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +36,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -19.21, y: 0.55, z: 10.04}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,7 +104,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 10
@@ -160,7 +164,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7847676117062072693
+--- !u!114 &7606430661722545771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,17 +173,70 @@ MonoBehaviour:
   m_GameObject: {fileID: 8735838465147040193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 698263b250fee3747991f6f0cc45ef0d, type: 3}
+  m_Script: {fileID: 11500000, guid: 532c3c6b48c82c346bdc676739b9b0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 10
-  DefaultHealth: 10
+--- !u!114 &7405115888246014747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8735838465147040193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8dfb51c440fcec448a72519e8c54927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
+--- !u!114 &3186957886589778249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8735838465147040193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc4172a91fdab14696cc2af3feac58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 5
   Agent: {fileID: 1027793338400913943}
+--- !u!114 &2598958254492306625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8735838465147040193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1a772cd8320c44ba4152439b450d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 10
+  SizePerDamage: 1
+  JumpHeight: 1
+  JumpDuration: 0.5
+  JumpNum: 1
+--- !u!114 &3119710214192939821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8735838465147040193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4479d76e4d998540b936326113732fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SensorRadius: 30
+  PatrolRadius: 10
+  mainBase: {fileID: 0}
+  AttackRange: 8
+  currentState: 0
   AttackLayer:
     serializedVersion: 2
     m_Bits: 64
-  DetectionRadius: 20
-  AttackRange: 3
-  Target: {fileID: 0}
-  Damage: 1
-  SizePerDamage: 0.05

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class BlobDepot : MonoBehaviour
+public class BlobDepot : Singleton<BlobDepot>
 {
     public TextMeshProUGUI Text;
     public List<int> BreakPoints;
@@ -19,19 +19,29 @@ public class BlobDepot : MonoBehaviour
     {
         Score++;
         Destroy(blob.gameObject);
-        Text.text = Score.ToString();
-        
-        if(Score >= nextScore)
+        UpdateText();
+        if (Score >= nextScore)
         {
             WinLevel();
         }
+    }
+
+    public void UpdateText()
+    {
+        Text.text = Score.ToString();
+    }
+    
+    public void ReduceScore(int amount)
+    {
+        Score -= amount;
+        UpdateText();
     }
 
     public void WinLevel()
     {
         Debug.Log("SHOW ME THAT SHOP");
         nextScoreIndex++;
-        if(nextScoreIndex < BreakPoints.Count)
+        if (nextScoreIndex < BreakPoints.Count)
         {
             nextScore = BreakPoints[nextScoreIndex];
         }

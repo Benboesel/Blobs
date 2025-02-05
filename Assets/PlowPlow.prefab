@@ -12,11 +12,13 @@ GameObject:
   - component: {fileID: 6328942893980757054}
   - component: {fileID: 4168965999133507739}
   - component: {fileID: 273802762844366642}
-  - component: {fileID: 7044698206772056842}
   - component: {fileID: 3648199760531001675}
   - component: {fileID: 1440097698502681292}
+  - component: {fileID: 64513365228288172}
+  - component: {fileID: 5835882715571411352}
+  - component: {fileID: 6746678344992710709}
   m_Layer: 0
-  m_Name: Harvester (3)
+  m_Name: PlowPlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,28 +113,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!135 &7044698206772056842
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8234040649956115017}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_ObstacleAvoidanceType: 0
 --- !u!54 &3648199760531001675
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -172,10 +153,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c75a1fac389af04b8dad44e7fda64f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 10
+  detectionRadius: 40
   BlobLayer:
     serializedVersion: 2
     m_Bits: 128
   speed: 2
   BlobInHand: {fileID: 0}
-  Depot: {fileID: 0}
+  PickupDistance: 2
+--- !u!114 &64513365228288172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8234040649956115017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 532c3c6b48c82c346bdc676739b9b0aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+--- !u!114 &5835882715571411352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8234040649956115017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc4172a91fdab14696cc2af3feac58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Agent: {fileID: 273802762844366642}
+--- !u!114 &6746678344992710709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8234040649956115017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8dfb51c440fcec448a72519e8c54927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100

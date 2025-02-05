@@ -11,13 +11,16 @@ GameObject:
   - component: {fileID: 2187266672958620628}
   - component: {fileID: 3552310880268511883}
   - component: {fileID: 9034887288847569669}
-  - component: {fileID: 2221205286035559315}
   - component: {fileID: 46059402441650786}
   - component: {fileID: 320012043849363860}
   - component: {fileID: 2130151815927594010}
   - component: {fileID: 8701561096800455511}
+  - component: {fileID: 380793578619847943}
+  - component: {fileID: 5183246276682075709}
+  - component: {fileID: 1317013212743879992}
+  - component: {fileID: 3854443954705493358}
   m_Layer: 6
-  m_Name: Sphere
+  m_Name: Chozos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,27 +94,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2221205286035559315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6954650733188999190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a694882ca614ed448c42b300a1b3fa5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 10
-  DefaultHealth: 10
-  Agent: {fileID: 46059402441650786}
-  speed: 3
-  DefaultHunger: 100
-  slimePrefab: {fileID: 6002202254698375631, guid: 2993d5c3d19c6844eb2e350590e12094, type: 3}
-  MinPoopTime: 1
-  MaxPoopTime: 5
-  DefaultScale: 1.5
 --- !u!195 &46059402441650786
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -133,7 +115,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 3
 --- !u!135 &320012043849363860
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -203,3 +185,57 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &380793578619847943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6954650733188999190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 532c3c6b48c82c346bdc676739b9b0aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5183246276682075709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6954650733188999190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 977faecee59faa040b5c9d8f3d2441c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slimePrefab: {fileID: 6002202254698375631, guid: 2993d5c3d19c6844eb2e350590e12094, type: 3}
+  MinPoopTime: 6
+  MaxPoopTime: 12
+--- !u!114 &1317013212743879992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6954650733188999190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc4172a91fdab14696cc2af3feac58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0
+  Agent: {fileID: 46059402441650786}
+--- !u!114 &3854443954705493358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6954650733188999190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8dfb51c440fcec448a72519e8c54927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
