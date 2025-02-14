@@ -6,18 +6,20 @@ public enum UnitType
 {
     Chozos,
     JorbJorb,
-    PlowPlow
+    PlowPlow,
+    Chumbo
 }
 
-[Serializable]
-public class UnitPrefabPair
-{
-    public UnitType unitType;
-    public Unit prefab;
-}
 
 public class UnitManager : Singleton<UnitManager>
 {
+    [Serializable]
+    public class UnitPrefabPair
+    {
+        public UnitType unitType;
+        public Unit prefab;
+    }
+
     [SerializeField] public List<UnitPrefabPair> unitPrefabs = new List<UnitPrefabPair>();
     private Dictionary<UnitType, Unit> unitPrefabDictionary;
 
@@ -25,6 +27,7 @@ public class UnitManager : Singleton<UnitManager>
     public TextMeshProUGUI ChozosCountText;
     public TextMeshProUGUI JorbCountText;
     public TextMeshProUGUI PlowCountText;
+    public TextMeshProUGUI ChumboCountText;
 
     private Dictionary<UnitType, List<Unit>> unitLists = new Dictionary<UnitType, List<Unit>>();
     private Dictionary<UnitType, TextMeshProUGUI> unitCountTexts = new Dictionary<UnitType, TextMeshProUGUI>();
@@ -50,16 +53,28 @@ public class UnitManager : Singleton<UnitManager>
         unitLists[UnitType.Chozos] = new List<Unit>();
         unitLists[UnitType.JorbJorb] = new List<Unit>();
         unitLists[UnitType.PlowPlow] = new List<Unit>();
+        unitLists[UnitType.Chumbo] = new List<Unit>();
 
         // Map unit types to corresponding UI text fields
         unitCountTexts[UnitType.Chozos] = ChozosCountText;
         unitCountTexts[UnitType.JorbJorb] = JorbCountText;
         unitCountTexts[UnitType.PlowPlow] = PlowCountText;
+        unitCountTexts[UnitType.Chumbo] = ChumboCountText;
         FindExistingUnits();
         // Initialize text display
         UpdateAllUnitCounts();
     }
+    public List<Unit> GetUnitsByType(UnitType unitType)
+    {
+        if (unitLists.TryGetValue(unitType, out List<Unit> units))
+        {
+            return new List<Unit>(units); // Return a copy to prevent modification of the original list
+        }
 
+        Debug.LogWarning($"No units found for UnitType: {unitType}");
+        return new List<Unit>(); // Return an empty list if the type doesn't exist
+    }
+    
     private void FindExistingUnits()
     {
         foreach (Unit unit in FindObjectsByType<Unit>(FindObjectsSortMode.None))

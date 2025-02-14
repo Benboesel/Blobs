@@ -154,12 +154,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRadius: 40
-  BlobLayer:
+  PickupLayer:
+    serializedVersion: 2
+    m_Bits: 1152
+  ItemInHand: {fileID: 0}
+  PickupDistance: 2
+  SeedLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  SlimeLayer:
     serializedVersion: 2
     m_Bits: 128
-  speed: 2
-  BlobInHand: {fileID: 0}
-  PickupDistance: 2
 --- !u!114 &64513365228288172
 MonoBehaviour:
   m_ObjectHideFlags: 0
