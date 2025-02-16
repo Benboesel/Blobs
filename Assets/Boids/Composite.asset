@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9e409e20f92ac4a93efdb5c67f13a9, type: 3}
+  m_Name: Composite
+  m_EditorClassIdentifier: 
+  hasSecondMultiplier: 0
+  behaviors:
+  - behaviour: {fileID: 11400000, guid: 45b4bca06ccae664f8a0350ac67cdf7c, type: 2}
+    weight: 0.6
+    predatorWeight: 0.6
+  - behaviour: {fileID: 11400000, guid: 4aba799b3ff60a74497059d6055c6165, type: 2}
+    weight: 15
+    predatorWeight: 15
+  - behaviour: {fileID: 11400000, guid: bd4231fb3763b014bb08bdd3d7ee6d5d, type: 2}
+    weight: 0.7
+    predatorWeight: 0
+  - behaviour: {fileID: 11400000, guid: 77dc91a4ec74a2549954cb13f64c9ac1, type: 2}
+    weight: 5
+    predatorWeight: 0
+  - behaviour: {fileID: 11400000, guid: 6d4e8177f2510ba45ab6b3863ff8131b, type: 2}
+    weight: 20
+    predatorWeight: 20
+  - behaviour: {fileID: 11400000, guid: 3cc096bb38d0bcc448be58f4b6c6c20e, type: 2}
+    weight: 5
+    predatorWeight: 0
+  flightZoneRadius: 25
+  multiplierScale: 20

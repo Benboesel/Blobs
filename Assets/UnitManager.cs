@@ -7,7 +7,8 @@ public enum UnitType
     Chozos,
     JorbJorb,
     PlowPlow,
-    Chumbo
+    Chumbo,
+    Zardon
 }
 
 
@@ -119,16 +120,16 @@ public class UnitManager : Singleton<UnitManager>
         }
     }
 
-    public void RemoveUnit(UnitType type, Unit unit)
+    public void RemoveUnit(Unit unit)
     {
-        if (unitLists.ContainsKey(type))
+        if (unitLists.ContainsKey(unit.Type))
         {
-            unitLists[type].Remove(unit);
-            UpdateUnitCount(type);
+            unitLists[unit.Type].Remove(unit);
+            UpdateUnitCount(unit.Type);
         }
         else
         {
-            Debug.LogError($"No list found for UnitType: {type}");
+            Debug.LogError($"No list found for UnitType: {unit.Type}");
         }
     }
 

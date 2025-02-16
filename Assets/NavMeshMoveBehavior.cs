@@ -16,8 +16,23 @@ public class NavMeshMoveBehavior : MonoBehaviour, IMoveBehavior
         return Agent.remainingDistance;
     }
 
-    public void Reset()
+    public void ClearDestination()
     {
         Agent.ResetPath();
+    }
+
+    public void TeleportTo(Vector3 destination)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Disable()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Enable()
+    {
+        throw new System.NotImplementedException();
     }
 }

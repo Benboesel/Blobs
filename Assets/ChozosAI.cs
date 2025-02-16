@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ChozosAI : MonoBehaviour
@@ -7,6 +8,7 @@ public class ChozosAI : MonoBehaviour
     public GameObject slimePrefab;
     public float MinPoopTime;
     public float MaxPoopTime;
+
 
     void Awake()
     {
@@ -22,28 +24,20 @@ public class ChozosAI : MonoBehaviour
     {
         while (true)
         {
+
+            yield return new WaitForSeconds(Random.Range(MinPoopTime, MaxPoopTime)); // Change movement every few seconds
             Vector3 position = transform.position;
             position.y = 0;
             Instantiate(slimePrefab, position, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(MinPoopTime, MaxPoopTime)); // Change movement every few seconds
         }
     }
 
     void Update()
     {
-        if (moveBehavior.DistanceToDestination() < 0.5f)
-        {
-            PickNewWanderTarget();
-        }
+        // Vector3 targetPosition = FlockManager.instance.GetFlockTarget(transform.position, transform.forward);
+        // transform.position = targetPosition;
     }
 
-    void PickNewWanderTarget()
-    {
-        Vector3 randomDirection = new Vector3(
-            Random.Range(-GameManager.instance.PlayAreaSize, GameManager.instance.PlayAreaSize),
-            0,
-            Random.Range(-GameManager.instance.PlayAreaSize, GameManager.instance.PlayAreaSize)
-        );
-        moveBehavior.Move(randomDirection);
-    }
+
+
 }

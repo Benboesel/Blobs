@@ -89,8 +89,6 @@ public class PlowPlowAI : UnitAI
                 }
             }
         }
-
-        Debug.Log(closestSeed + "   " + closestOther);
         // **ENFORCE SEED PRIORITY: Always return closest seed first, even if farther**
         if (closestSeed != null)
         {

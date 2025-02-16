@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BasicDamageable : MonoBehaviour, IDamageble
@@ -6,6 +7,8 @@ public class BasicDamageable : MonoBehaviour, IDamageble
     private float defaultScale;
     private float currentHealth;
     private bool isAlive;
+
+    public event Action OnDie;
 
     void Start()
     {
@@ -17,7 +20,7 @@ public class BasicDamageable : MonoBehaviour, IDamageble
     public bool TakeDamage(float amount)
     {
         currentHealth -= amount;
-        Debug.Log($"{gameObject.name} took {amount} damage, {currentHealth} health remaining.");
+        // Debug.Log($"{gameObject.name} took {amount} damage, {currentHealth} health remaining.");
 
         if (currentHealth <= 0)
         {
@@ -28,10 +31,11 @@ public class BasicDamageable : MonoBehaviour, IDamageble
         return false;
     }
 
-    private void Die()
+    public void Die()
     {
         isAlive = false;
         Debug.Log($"{gameObject.name} has died.");
+        OnDie?.Invoke();
         Destroy(gameObject);
     }
 
