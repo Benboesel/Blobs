@@ -20,7 +20,7 @@ public class ZardonAI : UnitAI
     // Static collection to track which enemies are already being chased.
     private static HashSet<Unit> targetedEnemies = new HashSet<Unit>();
 
-    void Awake()
+    void Start()
     {
         attackBehavior = GetComponent<IAttackBehavior>();
         moveBehavior = GetComponent<IMoveBehavior>();

@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimePrefab: {fileID: 6002202254698375631, guid: 2993d5c3d19c6844eb2e350590e12094, type: 3}
-  MinPoopTime: 200
-  MaxPoopTime: 250
+  MinPoopTime: 10
+  MaxPoopTime: 20
 --- !u!114 &3854443954705493358
 MonoBehaviour:
   m_ObjectHideFlags: 0

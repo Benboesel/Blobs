@@ -155,6 +155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 2
+  velocity: {x: 0, y: 0, z: 0}
+  IsLatched: 0
 --- !u!114 &6746678344992710709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +220,7 @@ MonoBehaviour:
         value: -1
       tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
       traversableTags: -1
-    enableLocalAvoidance: 1
+    enableLocalAvoidance: 0
     enableGravity: 1
   autoRepathBacking:
     mode: 2

@@ -33,20 +33,16 @@ public class UnitManager : Singleton<UnitManager>
     private Dictionary<UnitType, List<Unit>> unitLists = new Dictionary<UnitType, List<Unit>>();
     private Dictionary<UnitType, TextMeshProUGUI> unitCountTexts = new Dictionary<UnitType, TextMeshProUGUI>();
 
-    public void Start()
+    protected void Start()
     {
+        Debug.Log(UnitManager.instance);
         // Convert list into a dictionary for fast lookup
         unitPrefabDictionary = new Dictionary<UnitType, Unit>();
         foreach (UnitPrefabPair pair in unitPrefabs)
         {
             if (!unitPrefabDictionary.ContainsKey(pair.unitType))
             {
-                Debug.Log("ADDING " + pair.unitType + "   " + pair.prefab);
                 unitPrefabDictionary.Add(pair.unitType, pair.prefab);
-            }
-            else
-            {
-                Debug.LogWarning($"Duplicate UnitType detected: {pair.unitType}");
             }
         }
 
@@ -55,6 +51,7 @@ public class UnitManager : Singleton<UnitManager>
         unitLists[UnitType.JorbJorb] = new List<Unit>();
         unitLists[UnitType.PlowPlow] = new List<Unit>();
         unitLists[UnitType.Chumbo] = new List<Unit>();
+        unitLists[UnitType.Zardon] = new List<Unit>();
 
         // Map unit types to corresponding UI text fields
         unitCountTexts[UnitType.Chozos] = ChozosCountText;

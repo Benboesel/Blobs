@@ -10,12 +10,10 @@ public class PlowPlowAI : UnitAI
     public float PickupDistance = 1.5f;
     public Pickupable currentClaim;
 
-    private float searchCooldown = 0.5f; // How often to check for a closer item
-    private float nextSearchTime = 0f;   // Time tracker for next search
-
-    public void Awake()
+    public void Start()
     {
         moveBehavior = GetComponent<IMoveBehavior>();
+        PickNewWanderTarget();
     }
     public void SearchForItem()
     {
@@ -47,7 +45,10 @@ public class PlowPlowAI : UnitAI
         }
         else
         {
-            PickNewWanderTarget();
+            if (moveBehavior.DistanceToDestination() < 0.2f)
+            {
+                PickNewWanderTarget();
+            }
         }
     }
 
@@ -145,6 +146,7 @@ public class PlowPlowAI : UnitAI
 
     void MoveToDepot()
     {
+        // Debug.Log(moveBehavior +   "   " + GameManager.instance.Depot);
         moveBehavior.Move(GameManager.instance.Depot.transform.position);
         if (Vector3.Distance(transform.position, GameManager.instance.Depot.transform.position) < 2f)
         {

@@ -67,6 +67,6 @@ public class UnitSeed : Pickupable
         float z = Mathf.Sin(angle) * radius;
 
         // Set spawn height relative to the tree
-        return new Vector3(transform.position.x + x, .75f, transform.position.z + z);
+        return new Vector3(transform.position.x + x, 0f, transform.position.z + z);
     }
 }

@@ -13,7 +13,7 @@ public class FlockManager : MonoBehaviour
     public float PredatorDetectionRadius = 30f;
     public LayerMask PredatorLayerMask; // assign a layer that predators are on
     [HideInInspector] public List<Transform> Predators = new List<Transform>();
-    public void Update()
+    public void LateUpdate()
     {
         List<Unit> flock = UnitManager.instance.GetUnitsByType(UnitType.Chozos);
         Predators = GetNearbyPredators(flock);
@@ -23,14 +23,14 @@ public class FlockManager : MonoBehaviour
             Vector3 moveVelocity = compositeBehaviour.CalculateMove(unit, context, this);
             moveVelocity *= Speed;
 
-            if(unit.IsLatched)
+            if (unit.IsLatched)
             {
                 moveVelocity *= 0.3f;
             }
 
             // Clamp the velocity so it doesn't exceed maxVelocity
             moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxVelocity);
-
+            moveVelocity.y = 0;
             unit.transform.position += moveVelocity * Time.deltaTime;
             unit.velocity = moveVelocity * Time.deltaTime;
             // Rotate agent to face its movement direction (if velocity is not zero)

@@ -30,14 +30,5 @@ public class ChozosAI : MonoBehaviour
             position.y = 0;
             Instantiate(slimePrefab, position, Quaternion.identity);
         }
-    }
-
-    void Update()
-    {
-        // Vector3 targetPosition = FlockManager.instance.GetFlockTarget(transform.position, transform.forward);
-        // transform.position = targetPosition;
-    }
-
-
-
+    }       
 }

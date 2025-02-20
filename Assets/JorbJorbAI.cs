@@ -19,7 +19,7 @@ public class JorbJorbAI : UnitAI
     private Vector3 currentPatrolDestination;
     public LayerMask AttackLayer;
 
-    void Awake()
+    void Start()
     {
         attackBehavior = GetComponent<IAttackBehavior>();
         moveBehavior = GetComponent<IMoveBehavior>();

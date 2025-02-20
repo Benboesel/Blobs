@@ -12,9 +12,10 @@ public class ChumboAI : UnitAI
     public float AnimationDuration;
     public float IncubationTime;
 
-    void Awake()
+    void Start()
     {
         moveBehavior = GetComponent<IMoveBehavior>();
+        PickNewWanderTarget();
     }
 
 
