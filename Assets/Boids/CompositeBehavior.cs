@@ -11,29 +11,27 @@ public class CompositeBehaviour : FlockBehavior
         public FlockBehavior behaviour;
         public float weight;
         public float predatorWeight;
+        public float grazingWeight;
 
     }
-
+    public GrazeBehavior GrazingBehavior;
     public BehaviourAndWeight[] behaviors;
     [Tooltip("Flight zone radius (r) where the predator's influence is strongest.")]
-    public float flightZoneRadius;
-
-    [Tooltip("Scale value for the sigmoid function (typically 20).")]
-    public float multiplierScale = 20f;
+    public EscapeBehavior EscapeBehavior;
 
     public float CalculatePredatorInfluence(float enemyDistance)
     {
-        if (enemyDistance >= flightZoneRadius)
+        if (enemyDistance >= EscapeBehavior.predatorRange)
             return 0f;
 
-        return 1f - (enemyDistance / flightZoneRadius);
+        return 1f - (enemyDistance / EscapeBehavior.predatorRange);
     }
 
-    public override Vector3 CalculateMove(Unit agent, List<Transform> context, FlockManager flock)
+    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, FlockManager flock)
     {
         // Final movement vector
         Vector3 move = Vector3.zero;
-
+        ChozosAI chozo = agent.GetComponent<ChozosAI>();
 
         float nearestDistance = Mathf.Infinity;
         foreach (Transform predator in flock.Predators)
@@ -46,20 +44,61 @@ public class CompositeBehaviour : FlockBehavior
         if (nearestDistance == Mathf.Infinity)
             nearestDistance = 10000f;
 
-        // float p = (1f / Mathf.PI) * Mathf.Atan((flightZoneRadius - nearestDistance) / multiplierScale) + 0.5f;
-        float p = CalculatePredatorInfluence(nearestDistance);
-        // Sum all behaviors
-        for (int i = 0; i < behaviors.Length; i++)
+
+        Vector3 totalMove = Vector3.zero;
+        float totalWeight = 0f;
+        float predatorPercentage = CalculatePredatorInfluence(nearestDistance); // placeholder; your actual code computes p from predator distance
+
+        Vector3 grazingMove = GrazingBehavior.CalculateMove(agent, neighbhors, flock);
+        if (GrazingBehavior.GetChosenPatch(agent) != null)
         {
-            BehaviourAndWeight b = behaviors[i];
-            float weight = Mathf.Lerp(b.weight, b.predatorWeight, p);
-
-            Vector3 partialMove = b.behaviour.CalculateMove(agent, context, flock) * weight;
-
-            // Add partial move
-            move += partialMove;
+            chozo.CurrentState = ChozosAI.State.Grazing;
+        }
+        else
+        {
+            chozo.CurrentState = ChozosAI.State.Roaming;
         }
 
-        return move;
+
+        for (int i = 0; i < behaviors.Length; i++)
+        {
+            BehaviourAndWeight behaviorAndWeight = behaviors[i];
+            float weight = GetWeight(chozo, behaviorAndWeight, predatorPercentage);
+            Vector3 partialMove = behaviorAndWeight.behaviour.CalculateMove(agent, neighbhors, flock) * weight;
+
+            // Only include behaviors that yield a nonzero result.
+            if (partialMove != Vector3.zero)
+            {
+                totalMove += partialMove;
+                totalWeight += weight;
+            }
+
+            if (agent.IsDebug)
+            {
+                DebugGraph.MultiLog("Total Move", DebugGraph.GetUniqueColor(i), partialMove.magnitude, behaviorAndWeight.behaviour.GetType().Name);
+            }
+        }
+
+        // If some behaviors contributed, return the weighted average.
+        if (totalWeight > 0f)
+            return totalMove / totalWeight;
+        else
+            return Vector3.zero;
+    }
+
+    public float GetWeight(ChozosAI chozosAI, BehaviourAndWeight behaviourAndWeight, float predatorInfluence)
+    {
+        if (chozosAI.CurrentState == ChozosAI.State.Roaming)
+        {
+            return Mathf.Lerp(behaviourAndWeight.weight, behaviourAndWeight.predatorWeight, predatorInfluence);
+        }
+        else
+        {
+            return Mathf.Lerp(behaviourAndWeight.grazingWeight, behaviourAndWeight.predatorWeight, predatorInfluence);
+        }
+        // else
+        // {
+        //     return behaviourAndWeight.predatorWeight;
+        // }
     }
 }

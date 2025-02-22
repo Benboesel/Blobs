@@ -8,8 +8,6 @@ public class Unit : MonoBehaviour
     private IDamageble _damageBehavior;
     private UnitAI _ai;
     public UnitType Type;
-    public Vector3 velocity;
-    [HideInInspector] public bool IsLatched = false;
 
     void Awake()
     {

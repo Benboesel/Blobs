@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Separation
   m_EditorClassIdentifier: 
   hasSecondMultiplier: 0
-  avoidanceRadius: 5
-  softness: 0.18
+  avoidanceRadius: 3.24
+  Strength: 8.41
+  rampExponent: 15

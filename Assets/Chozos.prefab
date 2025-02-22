@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 1690978746201067461}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.818, z: 0.344}
-  m_LocalScale: {x: 0.3147262, y: 0.3147262, z: 0.31472623}
+  m_LocalPosition: {x: 0, y: 1.997, z: 0.826}
+  m_LocalScale: {x: 0.43712324, y: 0.43712324, z: 0.43712327}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2187266672958620628}
@@ -113,8 +113,8 @@ Transform:
   m_GameObject: {fileID: 3617201737166011910}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 2.5, y: 3, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2187266672958620628}
@@ -229,8 +229,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &380793578619847943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,8 +244,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
-  velocity: {x: 0, y: 0, z: 0}
-  IsLatched: 0
 --- !u!114 &5183246276682075709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +259,12 @@ MonoBehaviour:
   slimePrefab: {fileID: 6002202254698375631, guid: 2993d5c3d19c6844eb2e350590e12094, type: 3}
   MinPoopTime: 10
   MaxPoopTime: 20
+  CurrentState: 0
+  IsDebug: 0
+  Velocity: {x: 0, y: 0, z: 0}
+  IsLatched: 0
+  Mesh: {fileID: 7555964486660938690}
+  EatingColor: {r: 0.3915094, g: 0.7852387, b: 1, a: 1}
 --- !u!114 &3854443954705493358
 MonoBehaviour:
   m_ObjectHideFlags: 0

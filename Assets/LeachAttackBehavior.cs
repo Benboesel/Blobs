@@ -77,7 +77,7 @@ public class LeachAttackBehavior : MonoBehaviour, IAttackBehavior
             // If for any reason the target becomes null, exit.
             if (currentTarget == null)
                 break;
-            currentTarget.IsLatched = true;
+            // currentTarget.IsLatched = true;
             // Update the anchor’s position so our unit stays on the target’s back.
             anchor.position = currentTarget.GetTop();
 

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bbad70a59e67b1459d786273b07cd83, type: 3}
+  m_Name: Grazing
+  m_EditorClassIdentifier: 
+  hasSecondMultiplier: 0
+  grazeAttractionStrength: 3
+  grazingDistanceThreshold: 0.1
+  slowDownZone: 1
+  MinGrazingStrength: 0.2
+  detectionRadius: 20
+  GrassLayer:
+    serializedVersion: 2
+    m_Bits: 2048

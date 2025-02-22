@@ -6,11 +6,10 @@ public class SeparationBehavior : FlockBehavior
 {
     [Tooltip("How close before we start applying the separation force.")]
     public float avoidanceRadius = 1.5f;
-
-    [Tooltip("Softness factor for the inverse-square function. '1' is typical per the paper.")]
-    public float softness = 1f;
-
-    public override Vector3 CalculateMove(Unit agent, List<Transform> context, FlockManager flock)
+    public float Strength;
+    [Tooltip("Tuning constant for the exponential ramp (e.g., 4 or 5).")]
+    public float rampExponent = 4f;
+    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> context, FlockManager flock)
     {
         // If there are no neighbors, no need to adjust movement
         if (context.Count == 0)
@@ -22,23 +21,22 @@ public class SeparationBehavior : FlockBehavior
         foreach (Transform neighbor in context)
         {
             Vector3 offset = agent.transform.position - neighbor.position;
-            float distSqr = offset.sqrMagnitude;
+            float distance = offset.magnitude;
 
-            // If the neighbor is within the avoidanceRadius, apply separation
-            if (distSqr < avoidanceRadius * avoidanceRadius)
+            // Only consider neighbors within the avoidance radius.
+            if (distance < avoidanceRadius)
             {
-                nAvoid++;
+                // Compute closeness factor (t=0 when at edge, t=1 when touching).
+                float t = Mathf.Clamp01(1 - (distance / avoidanceRadius));
 
-                // Inverse-square with softness factor => 1 / (dist^2 + softness^2)
-                // If softness = 1, this is 1 / (dist^2 + 1).
-                // offset.normalized is direction away from neighbor.
-                float denom = distSqr + (softness * softness);
-                // Add a small epsilon if you're worried about dividing by zero.
-                
-                separationMove += (offset / denom); 
+                // Compute an exponential ramp-up. When t=0, force=0; when t=1, force = exp(k) - 1.
+                float forceMagnitude = Mathf.Exp(t * rampExponent) - 1f;
+
+                // Add the contribution from this neighbor.
+                separationMove += offset.normalized * forceMagnitude * Strength;
+                nAvoid++;
             }
         }
-
         // Average out the total repulsion
         if (nAvoid > 0)
         {

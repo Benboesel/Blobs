@@ -5,5 +5,5 @@ public abstract class FlockBehavior : ScriptableObject
 {
     public bool hasSecondMultiplier;
 
-    public abstract Vector3 CalculateMove(Unit unit, List<Transform> neighbhors, FlockManager flock);
+    public abstract Vector3 CalculateMove(ChozosAI unit, List<Transform> neighbhors, FlockManager flock);
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wander
   m_EditorClassIdentifier: 
   hasSecondMultiplier: 0
-  wanderRadius: 1
-  wanderDistance: 1
-  wanderJitter: 0.01
-  wanderStrength: 0.04
+  wanderRadius: 1.23
+  wanderDistance: 1.76
+  wanderJitter: 0.09
+  wanderStrength: 3.35

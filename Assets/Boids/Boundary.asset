@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasSecondMultiplier: 0
   center: {x: 0, y: 0, z: 0}
-  areaRadius: 10
-  boundaryStrength: 0.15
+  areaRadius: 20.3
+  boundaryStrength: 1.75

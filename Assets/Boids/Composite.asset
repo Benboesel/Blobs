@@ -13,24 +13,38 @@ MonoBehaviour:
   m_Name: Composite
   m_EditorClassIdentifier: 
   hasSecondMultiplier: 0
+  GrazingBehavior: {fileID: 11400000, guid: fa2794baca251d240a2653133f410ff2, type: 2}
   behaviors:
   - behaviour: {fileID: 11400000, guid: 45b4bca06ccae664f8a0350ac67cdf7c, type: 2}
-    weight: 0.58
-    predatorWeight: 0.6
+    weight: 0.38
+    predatorWeight: 0
+    grazingWeight: 0
   - behaviour: {fileID: 11400000, guid: 4aba799b3ff60a74497059d6055c6165, type: 2}
-    weight: 15
-    predatorWeight: 15
-  - behaviour: {fileID: 11400000, guid: bd4231fb3763b014bb08bdd3d7ee6d5d, type: 2}
-    weight: 0.7
-    predatorWeight: 0
+    weight: 0.24
+    predatorWeight: 0.24
+    grazingWeight: 0
   - behaviour: {fileID: 11400000, guid: 77dc91a4ec74a2549954cb13f64c9ac1, type: 2}
-    weight: 13.94
+    weight: 0.54
     predatorWeight: 0
-  - behaviour: {fileID: 11400000, guid: 6d4e8177f2510ba45ab6b3863ff8131b, type: 2}
-    weight: 20
-    predatorWeight: 20
+    grazingWeight: 0
+  - behaviour: {fileID: 11400000, guid: bd4231fb3763b014bb08bdd3d7ee6d5d, type: 2}
+    weight: 0.56
+    predatorWeight: 0
+    grazingWeight: 0
   - behaviour: {fileID: 11400000, guid: 3cc096bb38d0bcc448be58f4b6c6c20e, type: 2}
-    weight: 5
+    weight: 0.2
     predatorWeight: 0
-  flightZoneRadius: 25
-  multiplierScale: 20
+    grazingWeight: 0
+  - behaviour: {fileID: 11400000, guid: 6d4e8177f2510ba45ab6b3863ff8131b, type: 2}
+    weight: 1.68
+    predatorWeight: 2
+    grazingWeight: 2
+  - behaviour: {fileID: 11400000, guid: 3a60b6da8a1ccb544856cf6c6909ec70, type: 2}
+    weight: 0
+    predatorWeight: 0
+    grazingWeight: 0
+  - behaviour: {fileID: 11400000, guid: fa2794baca251d240a2653133f410ff2, type: 2}
+    weight: 0
+    predatorWeight: 0
+    grazingWeight: 2.03
+  EscapeBehavior: {fileID: 11400000, guid: 6d4e8177f2510ba45ab6b3863ff8131b, type: 2}

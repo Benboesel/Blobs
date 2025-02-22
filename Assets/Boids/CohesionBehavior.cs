@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class CohesionBehavior : FlockBehavior
 {
-    private Vector3 currentVelocity = Vector3.zero;
-
-    public override Vector3 CalculateMove(Unit unit, List<Transform> neighbhors, FlockManager flock)
+    
+    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, FlockManager flock)
     {
         if (neighbhors.Count == 0)
         {
@@ -22,7 +21,7 @@ public class CohesionBehavior : FlockBehavior
             avgPosition += neighbor.position;
         }
         avgPosition /= neighbhors.Count;
-        cohesiveMove = avgPosition - unit.transform.position;
+        cohesiveMove = avgPosition - agent.transform.position;
         return cohesiveMove;
     }
 }

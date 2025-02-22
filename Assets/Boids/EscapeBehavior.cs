@@ -14,7 +14,7 @@ public class EscapeBehavior : FlockBehavior
     public float predatorRange = 20f;
     public float Fear;
 
-    public override Vector3 CalculateMove(Unit agent, List<Transform> context, FlockManager flock)
+    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, FlockManager flock)
     {
         // Get the list of nearby predators from the flock manager
         if (flock.Predators.Count == 0)

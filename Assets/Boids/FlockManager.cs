@@ -10,40 +10,52 @@ public class FlockManager : MonoBehaviour
     public float Speed;
     public float maxVelocity = 10f; // Set your desired maximum velocity here
     public float rotationSpeed;
-    public float PredatorDetectionRadius = 30f;
     public LayerMask PredatorLayerMask; // assign a layer that predators are on
     [HideInInspector] public List<Transform> Predators = new List<Transform>();
+
     public void LateUpdate()
     {
-        List<Unit> flock = UnitManager.instance.GetUnitsByType(UnitType.Chozos);
-        Predators = GetNearbyPredators(flock);
-        foreach (Unit unit in flock)
+        List<Unit> chozos = UnitManager.instance.GetUnitsByType(UnitType.Chozos);
+
+        List<ChozosAI> flock = new List<ChozosAI>();
+        foreach (Unit unit in chozos)
         {
-            List<Transform> context = GetNearbyObjects(unit);
-            Vector3 moveVelocity = compositeBehaviour.CalculateMove(unit, context, this);
-            moveVelocity *= Speed;
-
-            if (unit.IsLatched)
-            {
-                moveVelocity *= 0.3f;
-            }
-
-            // Clamp the velocity so it doesn't exceed maxVelocity
-            moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxVelocity);
-            moveVelocity.y = 0;
-            unit.transform.position += moveVelocity * Time.deltaTime;
-            unit.velocity = moveVelocity * Time.deltaTime;
-            // Rotate agent to face its movement direction (if velocity is not zero)
-            if (moveVelocity.sqrMagnitude > 0.01f)
-            {
-                unit.transform.rotation = Quaternion.Slerp(unit.transform.rotation,
-                                                          Quaternion.LookRotation(moveVelocity),
-                                                          Time.deltaTime * rotationSpeed);
-            }
+            flock.Add(unit.GetComponent<ChozosAI>());
+        }
+        Predators = GetNearbyPredators(flock);
+        foreach (ChozosAI unit in flock)
+        {
+            RoamOrFlee(unit);
         }
     }
 
-    public List<Transform> GetNearbyObjects(Unit unit)
+    public void RoamOrFlee(ChozosAI unit)
+    {
+        List<Transform> context = GetNearbyObjects(unit);
+        Vector3 moveVelocity = compositeBehaviour.CalculateMove(unit, context, this);
+        moveVelocity *= Speed;
+
+        if (unit.IsLatched)
+        {
+            moveVelocity *= 0.3f;
+        }
+        moveVelocity.y = 0;
+        moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxVelocity);
+
+        // Clamp the velocity so it doesn't exceed maxVelocity
+        // moveVelocity = Vector3.ClampMagnitude(moveVelocity, maxVelocity);
+        unit.transform.position += moveVelocity * Time.deltaTime;
+        unit.Velocity = moveVelocity;
+        // Rotate agent to face its movement direction (if velocity is not zero)
+        if (moveVelocity.sqrMagnitude > 0.01f)
+        {
+            unit.transform.rotation = Quaternion.Slerp(unit.transform.rotation,
+                                                      Quaternion.LookRotation(moveVelocity),
+                                                      Time.deltaTime * rotationSpeed);
+        }
+    }
+
+    public List<Transform> GetNearbyObjects(ChozosAI unit)
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, NearbyRadius, LayerMask);
         List<Transform> sheepNeighbors = new List<Transform>();
@@ -58,10 +70,10 @@ public class FlockManager : MonoBehaviour
     }
 
     // New method to get nearby predators:
-    public List<Transform> GetNearbyPredators(List<Unit> flock)
+    public List<Transform> GetNearbyPredators(List<ChozosAI> flock)
     {
         Vector3 flockCenter = Vector3.zero;
-        foreach (Unit unit in flock)
+        foreach (ChozosAI unit in flock)
         {
             flockCenter += unit.transform.position;
         }
@@ -69,7 +81,7 @@ public class FlockManager : MonoBehaviour
         {
             flockCenter /= flock.Count;
         }
-        Collider[] colliders = Physics.OverlapSphere(flockCenter, PredatorDetectionRadius, PredatorLayerMask);
+        Collider[] colliders = Physics.OverlapSphere(flockCenter, compositeBehaviour.EscapeBehavior.predatorRange, PredatorLayerMask);
         List<Transform> predatorTransforms = new List<Transform>();
         foreach (Collider col in colliders)
         {

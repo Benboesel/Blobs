@@ -15,5 +15,5 @@ MonoBehaviour:
   hasSecondMultiplier: 0
   predatorTag: Predator
   softness: 0.01
-  predatorRange: 16.8
-  Fear: 15
+  predatorRange: 15
+  Fear: 500
