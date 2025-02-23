@@ -16,6 +16,7 @@ public class CharacterAnimator : MonoBehaviour
     private Vector3 leftArmDefaultPos;
     private Vector3 rightArmDefaultPos;
     public PlayerPickupSystem PickupSystem;
+    public HerdGatherer HerdGatherer;
 
     void Start()
     {
@@ -24,6 +25,8 @@ public class CharacterAnimator : MonoBehaviour
         rightArmDefaultPos = RightHand.localPosition;
         PickupSystem.OnPickup += Pickup;
         PickupSystem.OnDrop += Drop;
+        HerdGatherer.OnHerdStarted += Pickup;
+        HerdGatherer.OnHerdEnded += Drop;
     }
 
     public void Pickup()

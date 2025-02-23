@@ -71,7 +71,7 @@ public class FlockManager : MonoBehaviour
     // New method to get nearby predators:
     public List<Transform> GetNearbyPredators(ChozosAI unit)
     {
-        Collider[] colliders = Physics.OverlapSphere(unit.transform.position, compositeBehaviour.EscapeBehavior.predatorRange, PredatorLayerMask);
+        Collider[] colliders = Physics.OverlapSphere(unit.transform.position, compositeBehaviour.EscapeBehavior.avoidanceRadius, PredatorLayerMask);
         List<Transform> enemies = new List<Transform>();
         foreach (Collider col in colliders)
         {

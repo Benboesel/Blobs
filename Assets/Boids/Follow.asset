@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 201883f59d7d26e45a5cf88f0dec7b05, type: 3}
-  m_Name: Escape
+  m_Script: {fileID: 11500000, guid: 5699066b52750b84ebaf51a55938ad56, type: 3}
+  m_Name: Follow
   m_EditorClassIdentifier: 
   hasSecondMultiplier: 0
-  avoidanceRadius: 3.75
-  Strength: 15
-  rampExponent: 20
+  slowDownZone: 10
+  stopDistance: 3
+  Strength: 6.95

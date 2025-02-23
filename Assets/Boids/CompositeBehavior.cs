@@ -12,8 +12,9 @@ public class CompositeBehaviour : FlockBehavior
         public float weight;
         public float predatorWeight;
         public float grazingWeight;
-
+        public float followWeight;
     }
+
     public GrazeBehavior GrazingBehavior;
     public BehaviourAndWeight[] behaviors;
     [Tooltip("Flight zone radius (r) where the predator's influence is strongest.")]
@@ -21,10 +22,10 @@ public class CompositeBehaviour : FlockBehavior
 
     public float CalculatePredatorInfluence(float enemyDistance)
     {
-        if (enemyDistance >= EscapeBehavior.predatorRange)
+        if (enemyDistance >= EscapeBehavior.avoidanceRadius)
             return 0f;
 
-        return 1f - (enemyDistance / EscapeBehavior.predatorRange);
+        return 1f - (enemyDistance / EscapeBehavior.avoidanceRadius);
     }
 
     public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, List<Transform> enemies, FlockManager flock)
@@ -50,20 +51,24 @@ public class CompositeBehaviour : FlockBehavior
         float predatorPercentage = CalculatePredatorInfluence(nearestDistance); // placeholder; your actual code computes p from predator distance
 
         Vector3 grazingMove = GrazingBehavior.CalculateMove(agent, neighbhors, enemies, flock);
-        if (GrazingBehavior.GetChosenPatch(agent) != null)
+        if (agent.CurrentState != ChozosAI.State.Follow)
         {
-            chozo.CurrentState = ChozosAI.State.Grazing;
+            if (GrazingBehavior.GetChosenPatch(agent) != null)
+            {
+                chozo.CurrentState = ChozosAI.State.Grazing;
+            }
+            else
+            {
+                chozo.CurrentState = ChozosAI.State.Roaming;
+            }
         }
-        else
-        {
-            chozo.CurrentState = ChozosAI.State.Roaming;
-        }
-
 
         for (int i = 0; i < behaviors.Length; i++)
         {
             BehaviourAndWeight behaviorAndWeight = behaviors[i];
             float weight = GetWeight(chozo, behaviorAndWeight, predatorPercentage);
+            if (weight == 0) continue;
+
             Vector3 partialMove = behaviorAndWeight.behaviour.CalculateMove(agent, neighbhors, enemies, flock) * weight;
 
             // Only include behaviors that yield a nonzero result.
@@ -91,6 +96,10 @@ public class CompositeBehaviour : FlockBehavior
         if (chozosAI.CurrentState == ChozosAI.State.Roaming)
         {
             return Mathf.Lerp(behaviourAndWeight.weight, behaviourAndWeight.predatorWeight, predatorInfluence);
+        }
+        else if (chozosAI.CurrentState == ChozosAI.State.Follow)
+        {
+            return behaviourAndWeight.followWeight;
         }
         else
         {

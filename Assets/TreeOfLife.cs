@@ -35,6 +35,7 @@ public class TreeOfLife : Building, IDropArea
     public override void OnSelected()
     {
         base.OnSelected();
+        Debug.Log("ON SELECTED");
         UI.SetPosition(transform.position, UIOffset);
         UI.Show();
     }
@@ -42,6 +43,7 @@ public class TreeOfLife : Building, IDropArea
     public override void OnDeselected()
     {
         base.OnDeselected();
+        Debug.Log("ON DESELECTED");
         UI.Hide();
     }
     public void StartGrowingSeed(UnitType type)

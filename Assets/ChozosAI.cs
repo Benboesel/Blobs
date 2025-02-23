@@ -12,7 +12,8 @@ public class ChozosAI : MonoBehaviour
     {
         Roaming,
         Grazing,
-        Fleeing
+        Fleeing,
+        Follow
     }
     public State CurrentState;
     private bool isEating = false;
@@ -30,6 +31,8 @@ public class ChozosAI : MonoBehaviour
     public Ease PoopAnimationCurve;
     public float MinPoopRadius;
     public float MaxPoopRadius;
+    public Transform FollowTarget;
+
     void Awake()
     {
         defaultColor = Mesh.material.color;
@@ -44,6 +47,20 @@ public class ChozosAI : MonoBehaviour
     //         yield return new WaitForSeconds(3.0f);
     //     }
     // }
+
+    public void SetFollowTarget(Transform target)
+    {
+        FollowTarget = target;
+        CurrentState = State.Follow;
+    }
+
+    public void ClearFollowTarget()
+    {
+        FollowTarget = null;
+        // You might want to revert to a default state (e.g., Roaming)
+        CurrentState = State.Roaming;
+    }
+
     private Vector3 GetRandomPositionAroundUnit()
     {
         float radius = Mathf.Sqrt(UnityEngine.Random.Range(MinPoopRadius, MaxPoopRadius));
