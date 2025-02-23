@@ -86,6 +86,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2232656520395709423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7111486663542321957}
+  m_Layer: 6
+  m_Name: PoopPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7111486663542321957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2232656520395709423}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -2.42}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2187266672958620628}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3617201737166011910
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +239,7 @@ Transform:
   m_Children:
   - {fileID: 6015843391103400174}
   - {fileID: 3889282443483594994}
+  - {fileID: 7111486663542321957}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &320012043849363860
@@ -257,14 +289,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimePrefab: {fileID: 6002202254698375631, guid: 2993d5c3d19c6844eb2e350590e12094, type: 3}
-  MinPoopTime: 10
-  MaxPoopTime: 20
   CurrentState: 0
   IsDebug: 0
   Velocity: {x: 0, y: 0, z: 0}
   IsLatched: 0
   Mesh: {fileID: 7555964486660938690}
   EatingColor: {r: 0.3915094, g: 0.7852387, b: 1, a: 1}
+  fullness: 0
+  fullnessThreshold: 250
+  fullnessRate: 10
+  PoopHeight: 2.5
+  PoopAnimationTime: 1.5
+  PoopAnimationCurve: 30
+  MinPoopRadius: 4
+  MaxPoopRadius: 6
 --- !u!114 &3854443954705493358
 MonoBehaviour:
   m_ObjectHideFlags: 0

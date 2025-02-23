@@ -6,7 +6,7 @@ using UnityEngine;
 public class CohesionBehavior : FlockBehavior
 {
     
-    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, FlockManager flock)
+    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, List<Transform> enemies, FlockManager flock)
     {
         if (neighbhors.Count == 0)
         {

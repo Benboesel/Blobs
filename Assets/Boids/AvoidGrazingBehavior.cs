@@ -9,18 +9,18 @@ public class AvoidGrazingBehavior : FlockBehavior
     public float Strength;
     [Tooltip("Tuning constant for the exponential ramp (e.g., 4 or 5).")]
     public float rampExponent = 4f;
-    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> context, FlockManager flock)
+    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, List<Transform> enemies, FlockManager flock)
     {
         if (agent.IsEating())
             return Vector3.zero;
         // If there are no neighbors, no need to adjust movement
-        if (context.Count == 0)
+        if (neighbhors.Count == 0)
             return Vector3.zero;
 
         Vector3 separationMove = Vector3.zero;
         int nAvoid = 0;
 
-        foreach (Transform neighbor in context)
+        foreach (Transform neighbor in neighbhors)
         {
             ChozosAI neighborUnit = neighbor.GetComponent<ChozosAI>();
             // Assume that only sheep that are grazing have isGrazing set to true.

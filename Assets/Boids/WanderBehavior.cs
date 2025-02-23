@@ -12,7 +12,7 @@ public class WanderBehavior : FlockBehavior
     // Each boid might store its own 'wanderTarget' so it's not identical for all boids
     private Dictionary<ChozosAI, Vector3> wanderTargets = new Dictionary<ChozosAI, Vector3>();
 
-    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, FlockManager flock)
+    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, List<Transform> enemies, FlockManager flock)
     {
         if (!wanderTargets.ContainsKey(agent))
         {

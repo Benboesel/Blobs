@@ -147,10 +147,10 @@ public class PlowPlowAI : UnitAI
     void MoveToDepot()
     {
         // Debug.Log(moveBehavior +   "   " + GameManager.instance.Depot);
-        moveBehavior.Move(GameManager.instance.Depot.transform.position);
-        if (Vector3.Distance(transform.position, GameManager.instance.Depot.transform.position) < 2f)
+        moveBehavior.Move(GameManager.instance.TreeOfLife.transform.position);
+        if (Vector3.Distance(transform.position, GameManager.instance.TreeOfLife.transform.position) < 2f)
         {
-            GameManager.instance.Depot.AddBlob(ItemInHand.transform);
+            GameManager.instance.TreeOfLife.AddBlob(ItemInHand.transform);
             ReleaseItem();
         }
     }

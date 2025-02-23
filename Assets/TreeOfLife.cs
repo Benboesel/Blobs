@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class TreeOfLife : Building
+public class TreeOfLife : Building, IDropArea
 {
     [Serializable]
     public class UnitPrefabPair
@@ -19,12 +19,19 @@ public class TreeOfLife : Building
     public float Height;
     public float Radius;
     public float UIOffset;
-
+    public float IconHeight;
 
     public void Start()
     {
         UI.HideImmediate();
     }
+
+    public void AddBlob(Transform blob)
+    {
+        ScoreManager.instance.IncreaseScore(1);
+        Destroy(blob.gameObject);
+    }
+
     public override void OnSelected()
     {
         base.OnSelected();
@@ -73,5 +80,25 @@ public class TreeOfLife : Building
 
         // Set spawn height relative to the tree
         return new Vector3(transform.position.x + x, transform.position.y + Height, transform.position.z + z);
+    }
+
+    public void Hover()
+    {
+        OnHovered();
+    }
+
+    public void Unhover()
+    {
+        OnUnhovered();
+    }
+
+    public void Accept(Pickupable item)
+    {
+        AddBlob(item.transform);
+    }
+
+    public float DropAreaHeight()
+    {
+        return IconHeight;
     }
 }

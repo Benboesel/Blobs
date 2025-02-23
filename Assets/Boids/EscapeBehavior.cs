@@ -14,16 +14,16 @@ public class EscapeBehavior : FlockBehavior
     public float predatorRange = 20f;
     public float Fear;
 
-    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, FlockManager flock)
+    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, List<Transform> enemies, FlockManager flock)
     {
         // Get the list of nearby predators from the flock manager
-        if (flock.Predators.Count == 0)
+        if (enemies.Count == 0)
             return Vector3.zero;
 
         Vector3 escapeForce = Vector3.zero;
         int predatorCount = 0;
 
-        foreach (Transform predatorTransform in flock.Predators)
+        foreach (Transform predatorTransform in enemies)
         {
             Vector3 offset = agent.transform.position - predatorTransform.position;
             float distSqr = offset.sqrMagnitude;

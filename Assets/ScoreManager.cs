@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class BlobDepot : Singleton<BlobDepot>
+public class ScoreManager : Singleton<ScoreManager>
 {
+    public int Score;
     public TextMeshProUGUI Text;
     public List<int> BreakPoints;
-    public int Score;
     private int nextScore;
     private int nextScoreIndex;
 
@@ -14,15 +14,21 @@ public class BlobDepot : Singleton<BlobDepot>
     {
         nextScore = BreakPoints[0];
     }
-
-    public void AddBlob(Transform blob)
+    public bool CanAfford(int cost)
     {
-        Score++;
-        Destroy(blob.gameObject);
-        UpdateText();
-        if (Score >= nextScore)
+        return cost <= Score;
+    }
+
+    public void Buy(int cost)
+    {
+        if (CanAfford(cost))
         {
-            WinLevel();
+            ReduceScore(cost);
+        }
+
+        else
+        {
+            Debug.Log("CANT BUY, not enough money");
         }
     }
 
@@ -30,10 +36,16 @@ public class BlobDepot : Singleton<BlobDepot>
     {
         Text.text = Score.ToString();
     }
-    
+
     public void ReduceScore(int amount)
     {
         Score -= amount;
+        UpdateText();
+    }
+
+    public void IncreaseScore(int amount)
+    {
+        Score += amount;
         UpdateText();
     }
 

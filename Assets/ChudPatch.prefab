@@ -592,7 +592,7 @@ MonoBehaviour:
   maxGrass: 100
   currentGrass: 100
   depletionRate: 5
-  regrowthRate: 1
+  regrowthRate: 5
   grazingUnits: []
   fullColor: {r: 0.08235294, g: 1, b: 0, a: 1}
   emptyColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
@@ -604,6 +604,7 @@ MonoBehaviour:
   - {fileID: 8697070579682724745}
   - {fileID: 9124923276828757929}
   - {fileID: 4100592150329481764}
+  RegrowthDelay: 60
 --- !u!1 &9054509006584484579
 GameObject:
   m_ObjectHideFlags: 0

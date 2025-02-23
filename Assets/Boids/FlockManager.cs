@@ -11,7 +11,6 @@ public class FlockManager : MonoBehaviour
     public float maxVelocity = 10f; // Set your desired maximum velocity here
     public float rotationSpeed;
     public LayerMask PredatorLayerMask; // assign a layer that predators are on
-    [HideInInspector] public List<Transform> Predators = new List<Transform>();
 
     public void LateUpdate()
     {
@@ -22,7 +21,6 @@ public class FlockManager : MonoBehaviour
         {
             flock.Add(unit.GetComponent<ChozosAI>());
         }
-        Predators = GetNearbyPredators(flock);
         foreach (ChozosAI unit in flock)
         {
             RoamOrFlee(unit);
@@ -32,7 +30,8 @@ public class FlockManager : MonoBehaviour
     public void RoamOrFlee(ChozosAI unit)
     {
         List<Transform> context = GetNearbyObjects(unit);
-        Vector3 moveVelocity = compositeBehaviour.CalculateMove(unit, context, this);
+        List<Transform> predators = GetNearbyPredators(unit);
+        Vector3 moveVelocity = compositeBehaviour.CalculateMove(unit, context, predators, this);
         moveVelocity *= Speed;
 
         if (unit.IsLatched)
@@ -57,7 +56,7 @@ public class FlockManager : MonoBehaviour
 
     public List<Transform> GetNearbyObjects(ChozosAI unit)
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, NearbyRadius, LayerMask);
+        Collider[] colliders = Physics.OverlapSphere(unit.transform.position, NearbyRadius, LayerMask);
         List<Transform> sheepNeighbors = new List<Transform>();
         foreach (Collider col in colliders)
         {
@@ -70,24 +69,15 @@ public class FlockManager : MonoBehaviour
     }
 
     // New method to get nearby predators:
-    public List<Transform> GetNearbyPredators(List<ChozosAI> flock)
+    public List<Transform> GetNearbyPredators(ChozosAI unit)
     {
-        Vector3 flockCenter = Vector3.zero;
-        foreach (ChozosAI unit in flock)
-        {
-            flockCenter += unit.transform.position;
-        }
-        if (flock.Count > 0)
-        {
-            flockCenter /= flock.Count;
-        }
-        Collider[] colliders = Physics.OverlapSphere(flockCenter, compositeBehaviour.EscapeBehavior.predatorRange, PredatorLayerMask);
-        List<Transform> predatorTransforms = new List<Transform>();
+        Collider[] colliders = Physics.OverlapSphere(unit.transform.position, compositeBehaviour.EscapeBehavior.predatorRange, PredatorLayerMask);
+        List<Transform> enemies = new List<Transform>();
         foreach (Collider col in colliders)
         {
-            predatorTransforms.Add(col.transform);
+            enemies.Add(col.transform);
         }
-        return predatorTransforms;
+        return enemies;
     }
 
 }

@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
 public class GrassPatch : MonoBehaviour
@@ -13,11 +15,13 @@ public class GrassPatch : MonoBehaviour
     public Color fullColor;
     public Color emptyColor;
     public List<MeshRenderer> Meshes;
+    public float RegrowthDelay;
+    private float timeOfLastBite;
 
     // Call this when a unit starts grazing on this patch.
     public void EnterGrazing(ChozosAI unit)
     {
-        Debug.Log("CHOSE PATCH " + unit);
+        // Debug.Log("CHOSE PATCH " + unit);
         // Adds the unit if it isn't already in the set.
         if (!grazingUnits.Contains(unit))
         {
@@ -28,7 +32,7 @@ public class GrassPatch : MonoBehaviour
     // Call this when a unit stops grazing on this patch.
     public void ExitGrazing(ChozosAI unit)
     {
-        Debug.Log("EXIT PATCH " + unit);
+        // Debug.Log("EXIT PATCH " + unit);
 
         if (grazingUnits.Contains(unit))
         {
@@ -39,7 +43,7 @@ public class GrassPatch : MonoBehaviour
     // Returns a modified quality that decreases as more units are grazing.
     public float GetEffectiveQuality(float occupancyFactor = 2f)
     {
-        if(grazingUnits.Count > 0) return 0;
+        if (grazingUnits.Count > 0) return 0;
         float quality = currentGrass / maxGrass;
         return quality;
         // return quality / (1f + occupancyFactor * grazingUnits.Count);
@@ -49,19 +53,23 @@ public class GrassPatch : MonoBehaviour
     public void Graze()
     {
         currentGrass -= depletionRate * Time.deltaTime;
+
+        UpdateVisuals();
+        timeOfLastBite = Time.time;
+        if (currentGrass <= 0f)
+        {
+            currentGrass = 0f;
+        }
+    }
+
+    public void UpdateVisuals()
+    {
         Vector3 scale = transform.localScale;
         float percentage = (currentGrass / maxGrass);
         scale.y = Mathf.Lerp(.05f, 1.0f, percentage);
         transform.localScale = scale;
-        UpdateColor(percentage);
-        if (currentGrass < 0f)
-            currentGrass = 0f;
-    }
-
-    public void UpdateColor(float percentage)
-    {
         Color color = Color.Lerp(emptyColor, fullColor, percentage);
-        foreach(MeshRenderer mesh in Meshes)
+        foreach (MeshRenderer mesh in Meshes)
         {
             mesh.material.color = color;
         }
@@ -80,10 +88,14 @@ public class GrassPatch : MonoBehaviour
         {
             currentGrass += regrowthRate * Time.deltaTime;
             currentGrass = Mathf.Min(currentGrass, maxGrass);
+            UpdateVisuals();
         }
     }
     void Update()
     {
-        // Regrow();
+        if (Time.time - timeOfLastBite > RegrowthDelay)
+        {
+            Regrow();
+        }
     }
 }

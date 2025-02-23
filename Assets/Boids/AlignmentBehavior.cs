@@ -7,16 +7,16 @@ public class AlignmentBehavior : FlockBehavior
     [Tooltip("Radius within which neighbors contribute to alignment.")]
     public float alignmentRadius = 5f;
 
-    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> context, FlockManager flock)
+    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, List<Transform> enemies, FlockManager flock)
     {
         // If there are no neighbors, no alignment needed
-        if (context.Count == 0)
+        if (neighbhors.Count == 0)
             return Vector3.zero;
 
         Vector3 alignmentMove = Vector3.zero;
         float count = 0;
 
-        foreach (Transform neighborTransform in context)
+        foreach (Transform neighborTransform in neighbhors)
         {
             // Check distance if you only want neighbors within alignmentRadius
             float distance = Vector3.Distance(agent.transform.position, neighborTransform.position);

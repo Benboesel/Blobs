@@ -27,14 +27,14 @@ public class CompositeBehaviour : FlockBehavior
         return 1f - (enemyDistance / EscapeBehavior.predatorRange);
     }
 
-    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, FlockManager flock)
+    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, List<Transform> enemies, FlockManager flock)
     {
         // Final movement vector
         Vector3 move = Vector3.zero;
         ChozosAI chozo = agent.GetComponent<ChozosAI>();
 
         float nearestDistance = Mathf.Infinity;
-        foreach (Transform predator in flock.Predators)
+        foreach (Transform predator in enemies)
         {
             float d = Vector3.Distance(agent.transform.position, predator.position);
             if (d < nearestDistance)
@@ -49,7 +49,7 @@ public class CompositeBehaviour : FlockBehavior
         float totalWeight = 0f;
         float predatorPercentage = CalculatePredatorInfluence(nearestDistance); // placeholder; your actual code computes p from predator distance
 
-        Vector3 grazingMove = GrazingBehavior.CalculateMove(agent, neighbhors, flock);
+        Vector3 grazingMove = GrazingBehavior.CalculateMove(agent, neighbhors, enemies, flock);
         if (GrazingBehavior.GetChosenPatch(agent) != null)
         {
             chozo.CurrentState = ChozosAI.State.Grazing;
@@ -64,7 +64,7 @@ public class CompositeBehaviour : FlockBehavior
         {
             BehaviourAndWeight behaviorAndWeight = behaviors[i];
             float weight = GetWeight(chozo, behaviorAndWeight, predatorPercentage);
-            Vector3 partialMove = behaviorAndWeight.behaviour.CalculateMove(agent, neighbhors, flock) * weight;
+            Vector3 partialMove = behaviorAndWeight.behaviour.CalculateMove(agent, neighbhors, enemies, flock) * weight;
 
             // Only include behaviors that yield a nonzero result.
             if (partialMove != Vector3.zero)

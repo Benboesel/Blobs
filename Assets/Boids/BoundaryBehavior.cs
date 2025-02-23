@@ -13,7 +13,7 @@ public class BoundaryBehavior : FlockBehavior
     [Tooltip("Strength of the boundary force. Higher values push boids back faster.")]
     public float boundaryStrength = 1f;
     
-    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, FlockManager flock)
+    public override Vector3 CalculateMove(ChozosAI agent, List<Transform> neighbhors, List<Transform> enemies, FlockManager flock)
     {
         // Calculate the vector from the agent to the center of the area.
         Vector3 toCenter = center - agent.transform.position;

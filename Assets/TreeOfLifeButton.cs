@@ -15,9 +15,9 @@ public class TreeOfLifeButton : MonoBehaviour
 
     public void OnButtonClicked()
     {
-        if (GameManager.instance.CanAfford(Cost))
+        if (ScoreManager.instance.CanAfford(Cost))
         {
-            GameManager.instance.Buy(Cost);
+            ScoreManager.instance.Buy(Cost);
             TreeOfLife.StartGrowingSeed(Type);
         }
     }
